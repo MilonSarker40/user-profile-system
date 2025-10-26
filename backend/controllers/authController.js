@@ -19,6 +19,22 @@ export const register = async (req, res) => {
   }
 };
 
+
+export const registerAdmin = async (req, res) => {
+  try {
+    const { name, email, password } = req.body;
+    const exist = await User.findOne({ where: { email } });
+    if (exist) return res.status(400).json({ message: "Email already exists" });
+
+    const hash = await bcrypt.hash(password, 10);
+    const admin = await User.create({ name, email, password: hash, role: "admin" });
+    res.status(201).json({ message: "Admin registered", admin });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+
 export const login = async (req, res) => {
   try {
     const { email, password } = req.body;
