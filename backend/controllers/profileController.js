@@ -10,6 +10,15 @@ export const createProfile = async (req, res) => {
   }
 };
 
+export const getAllProfiles = async (req, res) => {
+  try {
+    const profiles = await Profile.findAll();
+    res.json(profiles);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+};
+
 export const getProfile = async (req, res) => {
   const profile = await Profile.findOne({ where: { userId: req.params.userId } });
   profile ? res.json(profile) : res.status(404).json({ message: "Profile not found" });
