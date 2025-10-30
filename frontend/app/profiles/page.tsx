@@ -44,7 +44,10 @@ export default function ProfilesPage() {
     }
   };
 
-  const handleEdit = (profile) => { setForm(profile); setEditingId(profile.userId); };
+  const handleEdit = (profile) => { 
+    setForm(profile);
+    setEditingId(profile.userId); 
+  };
   const handleDelete = async (id) => {
     if (!confirm("Are you sure?")) return;
     try {
